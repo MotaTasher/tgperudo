@@ -1,10 +1,20 @@
 from typing import Optional, Union
 
 from pydantic import BaseModel
+from enum import StrEnum
+from datamodels.game.game_state import Bid
+
+
+class UserState(automat):
+    state: State
+    
+    def _update(self, message: str):
+        pass
 
 
 class CreateGameAction(BaseModel):
     type: str = "create_game"
+    game_id: str
 
 
 class ConnectGameAction(BaseModel):
@@ -22,8 +32,7 @@ class StartGameAction(BaseModel):
 
 class RaseAction(BaseModel):
     type: str = "rase"
-    cubes_value: Optional[int]
-    cubes_amount: Optional[int]
+    bid: Bid
 
 
 class CheckAction(BaseModel):
@@ -44,3 +53,4 @@ InputGameAction = CreateGameAction | ConnectGameAction | DisconnectGameAction | 
 class GameAction(BaseModel):
     user_id: str
     action: InputGameAction
+    game_id: str
