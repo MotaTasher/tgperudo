@@ -15,5 +15,8 @@ class GameState(BaseModel):
     user_mapping_reverse: Dict[int, str]
     bids_history: List[Bid]
     users_cubes_count: Dict[int, int]
-    users_cubes: Optional[Dict[int, List[int]]]
+    users_cubes: Optional[Dict[int, np.array[int]]]
     active_user: int
+    is_maputa: bool
+    has_maputa: Dict[int, bool]
+    game_stated: bool

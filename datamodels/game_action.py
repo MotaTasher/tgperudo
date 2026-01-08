@@ -5,13 +5,6 @@ from enum import StrEnum
 from datamodels.game.game_state import Bid
 
 
-class UserState(automat):
-    state: State
-    
-    def _update(self, message: str):
-        pass
-
-
 class CreateGameAction(BaseModel):
     type: str = "create_game"
     game_id: str
