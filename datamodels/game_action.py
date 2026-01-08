@@ -1,56 +1,58 @@
+from enum import StrEnum
 from typing import Optional, Union
 
 from pydantic import BaseModel
-from enum import StrEnum
-from datamodels.game.game_state import Bid
 
 
-class UserState(automat):
-    state: State
-    
-    def _update(self, message: str):
-        pass
+class UserCommands(StrEnum):
+    CREATE_GAME = "/create_game"
+    CONNECT_GAME = "/connect_game"
+    DISCONNECT_GAME = "/disconnect_game"
+    START_GAME = "/start_game"
 
 
-class CreateGameAction(BaseModel):
-    type: str = "create_game"
-    game_id: str
+class UserMessage(BaseModel):
+    text: str | None
 
 
-class ConnectGameAction(BaseModel):
-    type: str = "connect_game"
-    game_id: str
+# class CreateGameAction(BaseModel):
+#     type: str = "create_game"
 
 
-class DisconnectGameAction(BaseModel):
-    type: str = "disconnect_game"
+# class ConnectGameAction(BaseModel):
+#     type: str = "connect_game"
+#     game_id: str
 
 
-class StartGameAction(BaseModel):
-    type: str = "start_game"
+# class DisconnectGameAction(BaseModel):
+#     type: str = "disconnect_game"
 
 
-class RaseAction(BaseModel):
-    type: str = "rase"
-    bid: Bid
+# class StartGameAction(BaseModel):
+#     type: str = "start_game"
 
 
-class CheckAction(BaseModel):
-    type: str = "check"
+# class RaseAction(BaseModel):
+#     type: str = "rase"
+#     cubes_value: Optional[int]
+#     cubes_amount: Optional[int]
 
 
-class CheckEqualAction(BaseModel):
-    type: str = "check_equal"
+# class CheckAction(BaseModel):
+#     type: str = "check"
 
 
-class AskHistoryAction(BaseModel):
-    type: str = "ask_history"
+# class CheckEqualAction(BaseModel):
+#     type: str = "check_equal"
 
 
-InputGameAction = CreateGameAction | ConnectGameAction | DisconnectGameAction | StartGameAction | RaseAction | CheckAction | CheckEqualAction | AskHistoryAction
+# class AskHistoryAction(BaseModel):
+#     type: str = "ask_history"
+
+
+# InputGameAction = CreateGameAction | ConnectGameAction | DisconnectGameAction | StartGameAction | RaseAction | CheckAction | CheckEqualAction | AskHistoryAction
 
 
 class GameAction(BaseModel):
-    user_id: str
-    action: InputGameAction
-    game_id: str
+    chat_id: int
+    action: UserCommands | UserMessage
